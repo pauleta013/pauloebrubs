@@ -15,7 +15,7 @@ font-family:'Segoe UI',sans-serif;
 background:linear-gradient(135deg,#ff6a88,#ff99ac);
 color:white;
 text-align:center;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* tela inicial */
@@ -29,7 +29,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
-font-size:30px;
+font-size:28px;
 z-index:9999;
 cursor:pointer;
 animation:fadeIn 2s;
@@ -43,40 +43,43 @@ to{opacity:1}
 /* conteúdo */
 
 .container{
-padding:30px 20px;
+padding:25px;
 opacity:0;
 transition:opacity 2s;
 }
 
 h1{
-font-size:36px;
-margin-bottom:10px;
+font-size:34px;
+margin-bottom:8px;
 }
 
 .frase{
-font-size:20px;
+font-size:19px;
 margin-bottom:20px;
+opacity:0.95;
 }
 
 #contador{
-font-size:18px;
+font-size:17px;
 background:rgba(255,255,255,0.25);
-padding:12px;
+padding:14px;
 border-radius:12px;
 margin-bottom:25px;
+backdrop-filter: blur(8px);
 }
 
-/* slideshow profissional */
+/* slideshow */
 
 .slideshow{
 width:100%;
 max-width:340px;
+height:420px;
 margin:auto;
-border-radius:15px;
+border-radius:16px;
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
 position:relative;
-aspect-ratio:9/16;
+background:#00000020;
 }
 
 .slideshow img{
@@ -88,12 +91,12 @@ top:0;
 left:0;
 opacity:0;
 transform:scale(1);
-transition:opacity 1.5s ease-in-out, transform 6s linear;
+transition:opacity 1.5s ease-in-out, transform 8s linear;
 }
 
 .slideshow img.active{
 opacity:1;
-transform:scale(1.08); /* zoom cinematográfico */
+transform:scale(1.08);
 }
 
 /* corações */
@@ -103,6 +106,7 @@ position:fixed;
 color:white;
 font-size:20px;
 animation:fall linear forwards;
+pointer-events:none;
 }
 
 @keyframes fall{
@@ -113,7 +117,7 @@ opacity:0;
 }
 
 footer{
-margin-top:30px;
+margin-top:25px;
 font-size:14px;
 opacity:0.9;
 }
@@ -229,7 +233,6 @@ setInterval(atualizar,1000);
 /* slideshow */
 
 let slideIndex=0;
-
 const slides=document.querySelectorAll(".slideshow img");
 
 function trocar(){
@@ -246,7 +249,7 @@ slides[slideIndex].classList.add("active");
 
 }
 
-setInterval(trocar,3500);
+setInterval(trocar,4000);
 
 
 /* corações */
@@ -256,24 +259,20 @@ function criarCoracao(){
 const heart=document.createElement("div");
 
 heart.classList.add("heart");
-
 heart.innerHTML="❤️";
 
 heart.style.left=Math.random()*100+"vw";
-
 heart.style.animationDuration=(4+Math.random()*4)+"s";
 
 document.body.appendChild(heart);
 
 setTimeout(()=>{
-
 heart.remove();
-
 },8000);
 
 }
 
-setInterval(criarCoracao,400);
+setInterval(criarCoracao,500);
 
 </script>
 
