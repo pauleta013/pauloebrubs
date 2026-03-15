@@ -11,14 +11,35 @@
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
+font-family: 'Segoe UI', sans-serif;
 background:linear-gradient(135deg,#ff758c,#ff7eb3);
 color:white;
 text-align:center;
+overflow:hidden;
 }
 
+/* tela inicial */
+
+#startScreen{
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#ff6a88,#ff99ac);
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+font-size:28px;
+z-index:9999;
+cursor:pointer;
+}
+
+/* conteúdo */
+
 .container{
-padding:30px 15px;
+padding:30px 20px;
+opacity:0;
+transition:opacity 2s;
 }
 
 h1{
@@ -28,20 +49,22 @@ margin-bottom:10px;
 
 .frase{
 font-size:20px;
-margin-bottom:25px;
+margin-bottom:20px;
 }
 
 #contador{
 font-size:18px;
 background:rgba(255,255,255,0.2);
 padding:12px;
-border-radius:15px;
-margin-bottom:30px;
+border-radius:12px;
+margin-bottom:25px;
 }
+
+/* slideshow */
 
 .slideshow{
 width:100%;
-max-width:350px;
+max-width:340px;
 margin:auto;
 border-radius:15px;
 overflow:hidden;
@@ -50,11 +73,16 @@ box-shadow:0 10px 25px rgba(0,0,0,0.3);
 
 .slideshow img{
 width:100%;
-display:none;
+position:absolute;
+left:0;
+top:0;
+opacity:0;
+transition:opacity 1.5s;
 }
 
 .slideshow img.active{
-display:block;
+opacity:1;
+position:relative;
 }
 
 footer{
@@ -69,7 +97,13 @@ opacity:0.8;
 
 <body>
 
-<div class="container">
+<div id="startScreen">
+❤️ Paulo & Brubs ❤️
+<br><br>
+Toque para abrir nossa história
+</div>
+
+<div class="container" id="conteudo">
 
 <h1>Paulo ❤️ Brubs</h1>
 
@@ -99,11 +133,45 @@ Nosso amor começou em 16 de setembro de 2025 ❤️
 
 </div>
 
-<audio autoplay loop>
+<audio id="musica" loop>
 <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+
+/* iniciar site */
+
+function startSite(){
+
+document.getElementById("startScreen").style.display="none";
+
+document.getElementById("conteudo").style.opacity=1;
+
+const audio = document.getElementById("musica");
+
+audio.volume = 0;
+
+audio.play();
+
+let vol = 0;
+
+const fade = setInterval(()=>{
+
+if(vol < 1){
+
+vol += 0.02;
+audio.volume = vol;
+
+}else{
+clearInterval(fade);
+}
+
+},200);
+
+}
+
+document.getElementById("startScreen").onclick=startSite;
+
 
 /* contador */
 
@@ -133,24 +201,25 @@ setInterval(atualizar,1000);
 
 /* slideshow */
 
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slideshow img");
+let slideIndex=0;
 
-function trocarFoto(){
+const slides=document.querySelectorAll(".slideshow img");
 
-slides.forEach(img => img.classList.remove("active"));
+function trocar(){
+
+slides.forEach(img=>img.classList.remove("active"));
 
 slideIndex++;
 
-if(slideIndex >= slides.length){
-slideIndex = 0;
+if(slideIndex>=slides.length){
+slideIndex=0;
 }
 
 slides[slideIndex].classList.add("active");
 
 }
 
-setInterval(trocarFoto,3000);
+setInterval(trocar,3500);
 
 </script>
 
